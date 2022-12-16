@@ -1,0 +1,96 @@
+{
+  "id": "builder-1",
+  "name": "RSAJ WATER ITERGRATED SYSTEM",
+  "createdAt": "2022-11-15 15:00:00",
+  "locale": "vi-VN",
+  "data": [
+    {
+      "id": "CustomActiveShapePieChart",
+      "name": "CustomActiveShapePieChart",
+      "description": "CustomActiveShapePieChart",
+      "widget": { "name": "CustomActiveShapePieChart" },
+      "properties": { "w": 7, "h": 3, "x": 0, "y": 5, "i": "CustomActiveShapePieChart", "minW": 4, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "StackedAreaChart",
+      "name": "StackedAreaChart",
+      "description": "StackedAreaChart",
+      "widget": { "name": "StackedAreaChart" },
+      "properties": { "w": 10, "h": 5, "x": 6, "y": 0, "i": "StackedAreaChart", "minW": 4, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "SpecifiedDomainRadarChart",
+      "name": "SpecifiedDomainRadarChart",
+      "description": "SpecifiedDomainRadarChart",
+      "widget": { "name": "SpecifiedDomainRadarChart" },
+      "properties": { "w": 6, "h": 5, "x": 0, "y": 0, "i": "SpecifiedDomainRadarChart", "minW": 4, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "TinyBarChart",
+      "name": "TinyBarChart",
+      "description": "TinyBarChart",
+      "widget": { "name": "TinyBarChart" },
+      "properties": { "w": 8, "h": 4, "x": 16, "y": 0, "i": "TinyBarChart", "minW": 4, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "MixBarChart",
+      "name": "MixBarChart",
+      "description": "MixBarChart",
+      "widget": { "name": "MixBarChart" },
+      "properties": { "w": 8, "h": 4, "x": 16, "y": 4, "i": "MixBarChart", "minW": 4, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "PieTemperature",
+      "name": "Pie Temperature",
+      "description": "",
+      "widget": { "name": "PieTemperature" },
+      "properties": { "w": 9, "h": 5, "x": 7, "y": 5, "i": "PieTemperature", "minW": 2, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "WaterTemperature",
+      "name": "WaterTemperature",
+      "description": "WaterTemperature",
+      "widget": { "name": "WaterTemperature" },
+      "properties": { "w": 7, "h": 2, "x": 0, "y": 8, "i": "WaterTemperature", "minW": 4, "moved": false, "static": false },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    },
+    {
+      "id": "PieWater",
+      "name": "Pie Water",
+      "description": "",
+      "widget": { "name": "PieWater" },
+      "properties": { "w": 8, "h": 2, "x": 16, "y": 8, "i": "PieWater", "minW": 2, "moved": false, "static": false },
+      "setting": { "className": "" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": []
+    }
+  ]
+}

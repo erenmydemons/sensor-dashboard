@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import RouteCatchError from './components/CatchError/RouteCatchError';
+import { ROUTER_PATHS } from './lib/constants/general';
+
+const AdminLayout = lazy(() => import('./features/Admin/Layout'));
+const BuilderFeature = lazy(() => import('./features/Admin/BuilderFeature'));
+const Home = lazy(() => import('./features/Home/Home'));
+
+const Fallback = () => <div>Page loading...</div>;
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: ROUTER_PATHS.HOME,
+      element: <Home />,
+      errorElement: <RouteCatchError />,
+    },
+    {
+      path: ROUTER_PATHS.ADMIN,
+      element: <AdminLayout />,
+      children: [
+        {
+          path: ROUTER_PATHS.BUILDER,
+          element: <BuilderFeature />,
+          errorElement: <RouteCatchError />,
+        },
+      ],
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense fallback={<Fallback />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 }
 

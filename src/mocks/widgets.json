@@ -1,0 +1,221 @@
+[
+  {
+    "id": "PieTemperature",
+    "name": "Pie Temperature",
+    "description": "",
+    "widget": {
+      "name": "PieTemperature"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 4,
+      "minW": 2,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "PieWater",
+    "name": "Pie Water",
+    "description": "",
+    "widget": {
+      "name": "PieWater"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 3,
+      "minW": 2
+    },
+    "setting": {
+      "className": ""
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "WaterTemperature",
+    "name": "WaterTemperature",
+    "description": "WaterTemperature",
+    "widget": {
+      "name": "WaterTemperature"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "MixBarChart",
+    "name": "MixBarChart",
+    "description": "MixBarChart",
+    "widget": {
+      "name": "MixBarChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "StackedAreaChart",
+    "name": "StackedAreaChart",
+    "description": "StackedAreaChart",
+    "widget": {
+      "name": "StackedAreaChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "SpecifiedDomainRadarChart",
+    "name": "SpecifiedDomainRadarChart",
+    "description": "SpecifiedDomainRadarChart",
+    "widget": {
+      "name": "SpecifiedDomainRadarChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "CustomActiveShapePieChart",
+    "name": "CustomActiveShapePieChart",
+    "description": "CustomActiveShapePieChart",
+    "widget": {
+      "name": "CustomActiveShapePieChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "TinyBarChart",
+    "name": "TinyBarChart",
+    "description": "TinyBarChart",
+    "widget": {
+      "name": "TinyBarChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "SameDataComposedChart",
+    "name": "SameDataComposedChart",
+    "description": "SameDataComposedChart",
+    "widget": {
+      "name": "SameDataComposedChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  },
+  {
+    "id": "SimpleRadialBarChart",
+    "name": "SimpleRadialBarChart",
+    "description": "SimpleRadialBarChart",
+    "widget": {
+      "name": "SimpleRadialBarChart"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 4,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": []
+  }
+]
