@@ -19,16 +19,16 @@ import {
   selectWidgetIdDragging,
 } from './builderSlice';
 import BuilderWidgetsDrawer from './components/BuilderWidgetsDrawer/BuilderWidgetsDrawer';
+import Spinner from 'src/components/Spinner/Spinner';
 
 import { Layout } from 'react-grid-layout';
 import { AppDispatch } from 'src/core/store';
-
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
 import { useNavigate } from 'react-router-dom';
 import { Builder } from 'src/lib/@types/model';
 import { ROUTER_PATHS } from 'src/lib/constants/general';
-import Spinner from 'src/components/Spinner/Spinner';
+
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 
 export interface BuilderPageProps {}
 

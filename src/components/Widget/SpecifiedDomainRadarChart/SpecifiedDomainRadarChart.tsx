@@ -35,7 +35,7 @@ export default function Example() {
   ]);
 
   useEffect(() => {
-    setInterval(() => {
+    const timer = setInterval(() => {
       const removeHistoryData = data.filter((d) => d.subject !== 'History');
 
       setData([
@@ -48,6 +48,10 @@ export default function Example() {
         },
       ]);
     }, 2000);
+
+    return () => {
+      return clearInterval(timer);
+    };
   }, [data]);
 
   return (
