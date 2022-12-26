@@ -4,7 +4,6 @@ import { RootState } from '../../../core/store';
 
 import { Builder, Widget } from 'src/lib/@types/model';
 import { routes } from 'src/mocks/server';
-import database from 'src/mocks/database';
 
 export interface BuilderFeatureState {
   widgets: Widget[];

@@ -1,5 +1,5 @@
-import React, { PureComponent, useEffect, useState } from 'react';
-import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { useEffect, useState } from 'react';
+import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from 'recharts';
 export default function Example() {
   const [data, setData] = useState([
     {
@@ -48,7 +48,7 @@ export default function Example() {
         },
       ]);
     }, 2000);
-  }, []);
+  }, [data]);
 
   return (
     <ResponsiveContainer width="100%" height="100%">

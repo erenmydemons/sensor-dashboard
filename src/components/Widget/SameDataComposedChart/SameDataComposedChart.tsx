@@ -1,5 +1,5 @@
-import React, { PureComponent, useEffect, useRef, useState } from 'react';
-import { ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useEffect, useRef, useState } from 'react';
+import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 export default function SameDataComposedChart() {
   const refTimer = useRef<any>();

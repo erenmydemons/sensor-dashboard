@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IconButton, Tab, TabPanel, Tabs, TabsBody, TabsHeader } from '@material-tailwind/react';
 import React, { FC, HTMLAttributes, useEffect } from 'react';
 import { IoIosClose } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'src/core/store';
-import { IoWalletOutline } from 'react-icons/io5';
 import { draggingWidgetToBuilder, dropWidgetToBuilder, selectBuilder, selectWidgets } from '../../builderSlice';
 
 export interface BuilderWidgetsDrawerProps extends HTMLAttributes<HTMLDivElement> {

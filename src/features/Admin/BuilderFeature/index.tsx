@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, IconButton, Tooltip } from '@material-tailwind/react';
 import { FC, useEffect, useRef, useState } from 'react';
 import { IoIosBrowsers, IoIosClose, IoIosQrScanner, IoMdExpand } from 'react-icons/io';

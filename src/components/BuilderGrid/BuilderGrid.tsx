@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { FC } from 'react';
-import RGL, { ReactGridLayoutProps, Responsive, WidthProvider } from 'react-grid-layout';
+import RGL, { ReactGridLayoutProps, WidthProvider } from 'react-grid-layout';
 import { useWindowSize } from 'react-use';
 
 export interface BuilderGridProps extends ReactGridLayoutProps {}

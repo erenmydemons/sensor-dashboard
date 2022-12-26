@@ -1,5 +1,5 @@
-import React, { memo, PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { memo } from 'react';
+import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 
 const data = [
   { name: 'Group A', value: 400 },
@@ -24,8 +24,6 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const ChartExample = memo(() => {
-  const demoUrl = 'https://codesandbox.io/s/pie-chart-with-customized-label-dlhhj';
-
   return (
     <ResponsiveContainer className={'bg-black rounded-md'} width="100%" height="100%">
       <PieChart width={400} height={400}>
