@@ -64,11 +64,10 @@ export default function database() {
           // const localData = localStorage.getItem(key) as string;
 
           // if (!localData) {
-            localStorage.setItem(key, JSON.stringify(jsonBuilderWidgets));
+          localStorage.setItem(key, JSON.stringify(jsonBuilderWidgets));
           // }
 
-          // return JSON.parse(localData) ?? jsonBuilderWidgets;
-          return jsonBuilderWidgets as any;
+          return JSON.parse(localStorage.getItem(key) as string) ?? jsonBuilderWidgets;
         },
 
         setAll(widgets: Widget[]) {
