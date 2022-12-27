@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, IconButton, Tooltip } from '@material-tailwind/react';
 import { FC, useEffect, useRef, useState } from 'react';
-import { IoIosBrowsers, IoIosClose, IoIosQrScanner, IoMdExpand } from 'react-icons/io';
+import { IoIosBrowsers, IoIosClose, IoIosQrScanner, IoMdConstruct, IoMdExpand } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import BuilderGrid from 'src/components/BuilderGrid/BuilderGrid';
+import Spinner from 'src/components/Spinner/Spinner';
 import WidgetLoader from 'src/components/Widget/WidgetLoader';
+import BuilderWidgetsDrawer from './components/BuilderWidgetsDrawer/BuilderWidgetsDrawer';
 import {
   addWidgetToBuilder,
   asyncFetchAllWidgets,
@@ -12,18 +14,17 @@ import {
   asyncFetchWidgets,
   asyncSaveBuilderChanges,
   changeWidgetInBuilder,
+  loadPattern,
   removeWidgetFromBuilder,
   resetBuilderAndWidget,
   selectBuilder,
   selectSaveLoading,
   selectWidgetIdDragging,
-} from './builderSlice';
-import BuilderWidgetsDrawer from './components/BuilderWidgetsDrawer/BuilderWidgetsDrawer';
-import Spinner from 'src/components/Spinner/Spinner';
+} from './reducers/builder.slice';
 
 import { Layout } from 'react-grid-layout';
-import { AppDispatch } from 'src/core/store';
 import { useNavigate } from 'react-router-dom';
+import { AppDispatch } from 'src/core/store';
 import { Builder } from 'src/lib/@types/model';
 import { ROUTER_PATHS } from 'src/lib/constants/general';
 
@@ -64,6 +65,8 @@ const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
   };
 
   const onSaveBuilder = () => dispatch(asyncSaveBuilderChanges(_selectBuilder as Builder));
+
+  const onLoadPattern = () => dispatch(loadPattern());
 
   useEffect(() => {
     dispatch(asyncFetchBuilder());
@@ -115,6 +118,10 @@ const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
         )}
 
         <div className="fixed bottom-4 right-4 space-x-2 flex items-center">
+          <Button variant="filled" className="inline-flex items-center" onClick={onLoadPattern}>
+            <IoMdConstruct className="mr-2" size={16} />
+            Load Default Pattern
+          </Button>
           <Button variant="outlined" onClick={onResetBuilder}>
             Reset
           </Button>

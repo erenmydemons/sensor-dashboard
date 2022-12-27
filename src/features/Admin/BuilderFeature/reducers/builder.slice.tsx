@@ -1,9 +1,19 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Layout } from 'react-grid-layout';
-import { RootState } from '../../../core/store';
+import { RootState } from '../../../../core/store';
 
 import { Builder, Widget } from 'src/lib/@types/model';
 import { routes } from 'src/mocks/server';
+
+import builderPatternJson from 'src/mocks/builder-full.json';
+
+export interface BuilderFilterState {
+  widgetName: string;
+  properties: {
+    value: string;
+    mappingTo: string;
+  };
+}
 
 export interface BuilderFeatureState {
   widgets: Widget[];
@@ -12,6 +22,8 @@ export interface BuilderFeatureState {
   draggingWidgetId: string | null;
 
   isSaveLoading: boolean;
+
+  filter: BuilderFilterState[];
 }
 
 const initialState: BuilderFeatureState = {
@@ -19,8 +31,8 @@ const initialState: BuilderFeatureState = {
   widgetsAll: [],
   widgets: [],
   draggingWidgetId: null,
-
   isSaveLoading: false,
+  filter: [],
 };
 
 export const asyncFetchBuilder = createAsyncThunk('builder/fetchBuilder', async () => {
@@ -138,6 +150,36 @@ const builderSlice = createSlice({
 
       return state;
     },
+
+    loadPattern: (state) => {
+      console.log('Load pattern');
+      state = { ...state, builder: builderPatternJson as any };
+      return state;
+    },
+
+    addFilter: (state, act) => {
+      console.log('Add new filter to store builder');
+
+      const payload = act.payload as BuilderFilterState;
+      const indexOfFilterExisted = state.filter?.findIndex((filterItem) => filterItem.widgetName === payload.widgetName);
+
+      if (indexOfFilterExisted !== -1) {
+        let shadowFilterAfterChanged = [...state.filter];
+        shadowFilterAfterChanged.splice(indexOfFilterExisted, 1, payload);
+
+        state = {
+          ...state,
+          filter: shadowFilterAfterChanged,
+        };
+      } else {
+        state = {
+          ...state,
+          filter: [...state.filter, payload],
+        };
+      }
+
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(asyncFetchBuilder.fulfilled, (state, action) => {
@@ -175,11 +217,14 @@ export const {
   dropWidgetToBuilder,
   removeWidgetFromBuilder,
   resetBuilderAndWidget,
+  addFilter,
+  loadPattern,
 } = builderSlice.actions;
 
 export const selectWidgets = (state: RootState) => state.builderFeature.widgets;
 export const selectBuilder = (state: RootState) => state.builderFeature.builder;
 export const selectSaveLoading = (state: RootState) => state.builderFeature.isSaveLoading;
 export const selectWidgetIdDragging = (state: RootState) => state.builderFeature.draggingWidgetId;
+export const selectBuilderFilter = (state: RootState) => state.builderFeature.filter;
 
 export default builderSlice.reducer;

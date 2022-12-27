@@ -10,6 +10,8 @@ const CustomActiveShapePieChart = lazy(() => import('./CustomActiveShapePieChart
 const TinyBarChart = lazy(() => import('./TinyBarChart/TinyBarChart'));
 const SameDataComposedChart = lazy(() => import('./SameDataComposedChart/SameDataComposedChart'));
 const SimpleRadialBarChart = lazy(() => import('./SimpleRadialBarChart/SimpleRadialBarChart'));
+const FilterState = lazy(() => import('./FilterState/FilterState'));
+const MyMaps = lazy(() => import('./MyMaps/MyMaps'));
 
 export const WIDGETS = {
   PieTemperature,
@@ -22,6 +24,8 @@ export const WIDGETS = {
   TinyBarChart,
   SameDataComposedChart,
   SimpleRadialBarChart,
+  FilterState,
+  MyMaps,
 };
 
 export interface WidgetLoaderPassProps {

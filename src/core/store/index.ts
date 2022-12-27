@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import builderFeatureSlice from '../../features/Admin/BuilderFeature/builderSlice';
+import districtSlice from 'src/features/Admin/BuilderFeature/reducers/district.slice';
+import builderFeatureSlice from '../../features/Admin/BuilderFeature/reducers/builder.slice';
 
 const store = configureStore({
   reducer: {
     builderFeature: builderFeatureSlice,
+    districts: districtSlice,
   },
 });
 

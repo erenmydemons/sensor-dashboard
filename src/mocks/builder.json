@@ -4,6 +4,174 @@
   "createdAt": "2022-11-15 15:00:00",
   "locale": "vi-VN",
   "data": [
-   
+    {
+      "id": "MyMaps",
+      "name": "My Maps",
+      "description": "My Maps",
+      "widget": { "name": "MyMaps" },
+      "properties": {
+        "w": 12,
+        "h": 19,
+        "x": 12,
+        "y": 0,
+        "i": "MyMaps",
+        "minW": 4,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["johor"]
+    },
+    {
+      "id": "PieTemperature",
+      "name": "Pie Temperature",
+      "description": "",
+      "widget": { "name": "PieTemperature" },
+      "properties": {
+        "w": 8,
+        "h": 9,
+        "x": 0,
+        "y": 1,
+        "i": "PieTemperature",
+        "minW": 2,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["johor", "pahang", "negeri sembilan"]
+    },
+    {
+      "id": "PieWater",
+      "name": "Pie Water",
+      "description": "",
+      "widget": { "name": "PieWater" },
+      "properties": {
+        "w": 4,
+        "h": 6,
+        "x": 8,
+        "y": 0,
+        "i": "PieWater",
+        "minW": 2,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["sarawak"]
+    },
+    {
+      "id": "WaterTemperature",
+      "name": "WaterTemperature",
+      "description": "WaterTemperature",
+      "widget": { "name": "WaterTemperature" },
+      "properties": {
+        "w": 4,
+        "h": 4,
+        "x": 8,
+        "y": 6,
+        "i": "WaterTemperature",
+        "minW": 4,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["Johor"]
+    },
+    {
+      "id": "CustomActiveShapePieChart",
+      "name": "CustomActiveShapePieChart",
+      "description": "CustomActiveShapePieChart",
+      "widget": { "name": "CustomActiveShapePieChart" },
+      "properties": {
+        "w": 4,
+        "h": 9,
+        "x": 8,
+        "y": 10,
+        "i": "CustomActiveShapePieChart",
+        "minW": 4,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["labuan"]
+    },
+    {
+      "id": "SpecifiedDomainRadarChart",
+      "name": "SpecifiedDomainRadarChart",
+      "description": "SpecifiedDomainRadarChart",
+      "widget": { "name": "SpecifiedDomainRadarChart" },
+      "properties": {
+        "w": 4,
+        "h": 9,
+        "x": 0,
+        "y": 10,
+        "i": "SpecifiedDomainRadarChart",
+        "minW": 4,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["labuan"]
+    },
+    {
+      "id": "StackedAreaChart",
+      "name": "StackedAreaChart",
+      "description": "StackedAreaChart",
+      "widget": { "name": "StackedAreaChart" },
+      "properties": {
+        "w": 4,
+        "h": 9,
+        "x": 4,
+        "y": 10,
+        "i": "StackedAreaChart",
+        "minW": 4,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["labuan"]
+    },
+    {
+      "id": "FilterState",
+      "name": "Filter State",
+      "description": "Filter State",
+      "widget": { "name": "FilterState" },
+      "properties": {
+        "w": 6,
+        "h": 1,
+        "x": 0,
+        "y": 0,
+        "i": "FilterState",
+        "minW": 2,
+        "maxH": 1,
+        "moved": false,
+        "static": false
+      },
+      "setting": { "className": "p-4" },
+      "createdAt": "2022-11-15 15:00:00",
+      "updatedAt": "2022-11-15 15:00:00",
+      "builders": [],
+      "states": ["all"]
+    }
   ]
 }

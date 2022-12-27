@@ -15,7 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "types": [
+      "node_modules/@types",
+      "./src/lib/@types/*/*.d.ts"
+    ]
   },
   "include": ["src"]
 }

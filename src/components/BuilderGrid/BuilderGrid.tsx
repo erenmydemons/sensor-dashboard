@@ -12,8 +12,6 @@ const ReactGridLayout = WidthProvider(RGL);
 const BuilderGrid: FC<BuilderGridProps> = ({ children, className, ...props }) => {
   const { height, width } = useWindowSize();
 
-  console.log(height);
-
   return (
     <ReactGridLayout
       {...props}

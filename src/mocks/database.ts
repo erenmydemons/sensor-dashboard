@@ -61,13 +61,14 @@ export default function database() {
 
       return {
         get(): Widget[] {
-          const localData = localStorage.getItem(key) as string;
+          // const localData = localStorage.getItem(key) as string;
 
-          if (!localData) {
+          // if (!localData) {
             localStorage.setItem(key, JSON.stringify(jsonBuilderWidgets));
-          }
+          // }
 
-          return JSON.parse(localData) ?? jsonBuilderWidgets;
+          // return JSON.parse(localData) ?? jsonBuilderWidgets;
+          return jsonBuilderWidgets as any;
         },
 
         setAll(widgets: Widget[]) {

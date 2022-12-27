@@ -1,5 +1,52 @@
 [
   {
+    "id": "MyMaps",
+    "name": "My Maps",
+    "description": "My Maps",
+    "widget": {
+      "name": "MyMaps"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 5,
+      "minW": 4,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": [],
+    "states": ["all"]
+  },
+  {
+    "id": "FilterState",
+    "name": "Filter State",
+    "description": "Filter State",
+    "widget": {
+      "name": "FilterState"
+    },
+    "properties": {
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 1,
+      "minW": 2,
+      "maxH": 1,
+      "static": false
+    },
+    "setting": {
+      "className": "p-4"
+    },
+    "createdAt": "2022-11-15 15:00:00",
+    "updatedAt": "2022-11-15 15:00:00",
+    "builders": [],
+    "states": ["all"]
+  },
+  {
     "id": "PieTemperature",
     "name": "Pie Temperature",
     "description": "",
@@ -19,7 +66,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["johor", "pahang", "negeri sembilan"]
   },
   {
     "id": "PieWater",
@@ -40,7 +88,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["sarawak", "malacca", "sarawak"]
   },
   {
     "id": "WaterTemperature",
@@ -62,7 +111,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["johor", "terengganu"]
   },
   {
     "id": "MixBarChart",
@@ -84,7 +134,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["perlis", "terengganu"]
   },
   {
     "id": "StackedAreaChart",
@@ -106,7 +157,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["labuan", "penang"]
   },
   {
     "id": "SpecifiedDomainRadarChart",
@@ -128,7 +180,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["labuan", "penang"]
   },
   {
     "id": "CustomActiveShapePieChart",
@@ -150,7 +203,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["labuan"]
   },
   {
     "id": "TinyBarChart",
@@ -172,7 +226,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["labuan", "penang"]
   },
   {
     "id": "SameDataComposedChart",
@@ -194,7 +249,8 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["labuan", "penang"]
   },
   {
     "id": "SimpleRadialBarChart",
@@ -216,6 +272,7 @@
     },
     "createdAt": "2022-11-15 15:00:00",
     "updatedAt": "2022-11-15 15:00:00",
-    "builders": []
+    "builders": [],
+    "states": ["labuan", "penang"]
   }
 ]

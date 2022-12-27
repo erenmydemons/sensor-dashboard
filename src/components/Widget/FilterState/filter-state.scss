@@ -1,0 +1,11 @@
+.filter-state {
+  @apply w-full z-40;
+
+  & > div {
+    @apply min-w-[100px] w-full;
+
+    .peer {
+      @apply text-white;
+    }
+  }
+}
