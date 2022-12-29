@@ -9,6 +9,8 @@ export interface Widget {
   updatedAt: string;
   builders: string[];
   states: string[];
+  categories: string[];
+  thumbnail: string;
 }
 
 export interface Properties {
@@ -64,4 +66,9 @@ export interface DistrictState {
   region: string;
   head_of_state: string;
   head_of_goverment: string;
+}
+
+export interface Category {
+  name: string;
+  id: string;
 }

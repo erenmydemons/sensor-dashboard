@@ -118,10 +118,12 @@ const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
         )}
 
         <div className="fixed bottom-4 right-4 space-x-2 flex items-center">
-          <Button variant="filled" className="inline-flex items-center" onClick={onLoadPattern}>
-            <IoMdConstruct className="mr-2" size={16} />
-            Load Default Pattern
-          </Button>
+          <Tooltip placeholder="top" content="This action will load a preconfigured">
+            <Button variant="filled" className="inline-flex items-center" onClick={onLoadPattern}>
+              <IoMdConstruct className="mr-2" size={16} />
+              Load Default Pattern
+            </Button>
+          </Tooltip>
           <Button variant="outlined" onClick={onResetBuilder}>
             Reset
           </Button>

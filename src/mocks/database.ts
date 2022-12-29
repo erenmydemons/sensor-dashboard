@@ -1,6 +1,7 @@
 import { Builder, Widget } from 'src/lib/@types/model';
 import jsonBuilders from 'src/mocks/builder.json';
 import jsonBuilderWidgets from 'src/mocks/widgets.json';
+import jsonCategories from 'src/mocks/categories.json';
 
 export default function database() {
   return {
@@ -76,6 +77,13 @@ export default function database() {
 
         reset() {
           localStorage.removeItem(key);
+        },
+      };
+    },
+    category: () => {
+      return {
+        get(): typeof jsonCategories {
+          return JSON.parse(JSON.stringify(jsonCategories));
         },
       };
     },

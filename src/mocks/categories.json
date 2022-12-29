@@ -1,0 +1,22 @@
+[
+  {
+    "id": "input",
+    "name": "Input"
+  },
+  {
+    "id": "line-chart",
+    "name": "Line Chart"
+  },
+  {
+    "id": "bar-chart",
+    "name": "Bar Chart"
+  },
+  {
+    "id": "pie-chart",
+    "name": "Pie Chart"
+  },
+  {
+    "id": "map",
+    "name": "Map"
+  }
+]

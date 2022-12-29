@@ -30,5 +30,10 @@ export function routes() {
       },
       save: () => {},
     },
+    categories: {
+      listAll() {
+        return database().category().get();
+      },
+    },
   };
 }

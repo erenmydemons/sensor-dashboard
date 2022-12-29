@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'src/core/store';
 import { useDistricts } from '../../hooks/useDistricts';
 import { draggingWidgetToBuilder, dropWidgetToBuilder, selectBuilder, selectWidgets } from '../../reducers/builder.slice';
+import { asyncGetCategories, selectCategories } from '../../reducers/category.slice';
 
 export interface BuilderWidgetsDrawerProps extends HTMLAttributes<HTMLDivElement> {
   onClose?: () => void;
@@ -15,6 +16,7 @@ export interface BuilderWidgetsDrawerProps extends HTMLAttributes<HTMLDivElement
 const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props }) => {
   const widgets = useSelector(selectWidgets);
   const selectedBuilder = useSelector(selectBuilder);
+  const _selectCategories = useSelector(selectCategories);
   const dispatch = useDispatch<AppDispatch>();
   const { register, control: formControl } = useForm();
   const { statesOrFederals } = useDistricts();
@@ -45,6 +47,7 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
 
   useEffect(() => {
     dispatch(dropWidgetToBuilder());
+    dispatch(asyncGetCategories());
   }, []);
 
   return (
@@ -82,11 +85,15 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
 
         <div className="mt-4"></div>
 
-        <Tabs value="widget">
+        <Tabs value="input">
           <TabsHeader>
-            <Tab key="widget" value="widget">
-              Favorite widgets
-            </Tab>
+            {_selectCategories.map((category) => {
+              return (
+                <Tab key={category.id} value={category.id}>
+                  {category.name}
+                </Tab>
+              );
+            })}
           </TabsHeader>
 
           <TabsBody
@@ -95,26 +102,33 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
               unmount: { opacity: 0 },
             }}
           >
-            <TabPanel key="widget" value="widget" className="h-[90vh]">
-              {layoutFilteredWidgets.length ? (
-                <div className="mt-4 grid grid-cols-2 gap-4 overflow-y-auto">
-                  {(layoutFilteredWidgets ?? []).map((widget, i) => (
-                    <div
-                      className="flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm"
-                      onDragStart={(e) => onDragTransferWidgetToBuilder(e, widget.id)}
-                      unselectable="on"
-                      draggable
-                    >
-                      {widget.name}
+            {_selectCategories.map((category) => {
+              return (
+                <TabPanel key={category.id} value={category.id} className="h-[90vh]">
+                  {layoutFilteredWidgets.length ? (
+                    <div className="mt-4 grid grid-cols-2 gap-4 overflow-y-auto">
+                      {(layoutFilteredWidgets ?? [])
+                        .filter((widget) => widget.categories.includes(category.id))
+                        .map((widget, i) => (
+                          <div
+                            className="flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm"
+                            onDragStart={(e) => onDragTransferWidgetToBuilder(e, widget.id)}
+                            unselectable="on"
+                            draggable
+                          >
+                            {/* {widget.name} */}
+                            <img src={widget.thumbnail} alt={widget.name} className="w-full h-full rounded-md object-center object-cover" />
+                          </div>
+                        ))}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center w-full">
-                  <span className="text-md">End widget.</span>
-                </p>
-              )}
-            </TabPanel>
+                  ) : (
+                    <p className="text-center w-full">
+                      <span className="text-md">No widget here.</span>
+                    </p>
+                  )}
+                </TabPanel>
+              );
+            })}
           </TabsBody>
         </Tabs>
       </div>
