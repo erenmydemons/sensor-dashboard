@@ -111,13 +111,17 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
                         .filter((widget) => widget.categories.includes(category.id))
                         .map((widget, i) => (
                           <div
-                            className="flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm"
+                            className="relative flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm"
                             onDragStart={(e) => onDragTransferWidgetToBuilder(e, widget.id)}
                             unselectable="on"
                             draggable
                           >
                             {/* {widget.name} */}
                             <img src={widget.thumbnail} alt={widget.name} className="w-full h-full rounded-md object-center object-cover" />
+
+                            <div className="absolute top-0 left-0 w-full h-full font-bold bg-gray-900/50 flex items-center justify-center text-white">
+                              {widget.name}
+                            </div>
                           </div>
                         ))}
                     </div>
