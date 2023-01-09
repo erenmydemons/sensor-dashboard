@@ -2,7 +2,7 @@
   "dataName": "$time",
   "builderId": "builder-1",
   "widgetId": "StackedAreaChart",
-  "apiUrl": "https://codestus.abc/api/mock-data-test",
+  "apiUrl": "https://api.codestus.com/api/mock-data-test",
   "fields": [
     { "show": true, "color": "#e3e3e3", "displayName": "A", "accessProperty": "data.temperature.C.Water1", "lineType": "Area" },
     { "show": true, "color": "#ababab", "displayName": "B", "accessProperty": "data.temperature.C.Water2", "lineType": "Area" },
