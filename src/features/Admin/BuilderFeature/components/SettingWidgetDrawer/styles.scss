@@ -1,15 +1,15 @@
 .setting-widget-drawer {
   .form-input {
     & > div {
-      @apply min-w-full;
+      min-width: 100%;
     }
 
     &.select {
       & > div {
-        @apply min-w-[100px];
+        min-width: 100px;
 
         svg {
-          @apply hidden;
+          display: none;
         }
       }
     }

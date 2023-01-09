@@ -7,7 +7,7 @@ import { IBuilderConfig } from 'src/lib/@types/model';
 import { flattenObject } from 'src/lib/utils/object';
 import { routes } from 'src/mocks/server';
 
-import './setting-widget-drawer.scss';
+import './styles.scss';
 
 export interface SettingWidgetDrawerProps {
   onClose: () => void;
