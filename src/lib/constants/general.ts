@@ -3,3 +3,9 @@ export const ROUTER_PATHS = {
   ADMIN: '/admin',
   BUILDER: '/admin/builder',
 };
+
+export const WIDGET = {
+  LABEL: {
+    INTEGRATE_API: 'integrate-api',
+  },
+};

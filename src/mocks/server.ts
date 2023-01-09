@@ -1,4 +1,4 @@
-import { Builder } from 'src/lib/@types/model';
+import { Builder, IBuilderConfig } from 'src/lib/@types/model';
 import database from './database';
 
 export function routes() {
@@ -33,6 +33,28 @@ export function routes() {
     categories: {
       listAll() {
         return database().category().get();
+      },
+    },
+
+    configs: {
+      listAll() {
+        return database().config().get();
+      },
+
+      findOne(id: string) {
+        return database().config().findOne(id);
+      },
+
+      findOneWithWidgetIdAndBuilderId(widgetId: string, builderId: string) {
+        return database().config().findOneWithWidgetIdAndBuilderId(widgetId, builderId);
+      },
+
+      save(data: IBuilderConfig) {
+        return database().config().save(data);
+      },
+
+      remove(id: string | string[]) {
+        return database().config().remove(id);
       },
     },
   };

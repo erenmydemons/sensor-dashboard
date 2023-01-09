@@ -1,0 +1,16 @@
+{
+  "id": "string",
+  "widgetId": "string",
+  "builderId": "string",
+  "apiUrl": "string",
+  "dataName": "string",
+  "fields": [
+    {
+      "show": true,
+      "displayName": "string",
+      "accessProperty": "string",
+      "color": "string",
+      "lineType": "string"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
-import { Builder, Widget } from 'src/lib/@types/model';
+import { Builder, IBuilderConfig, Widget } from 'src/lib/@types/model';
 import jsonBuilders from 'src/mocks/builder.json';
-import jsonBuilderWidgets from 'src/mocks/widgets.json';
 import jsonCategories from 'src/mocks/categories.json';
+import jsonBuilderWidgets from 'src/mocks/widgets.json';
 
 export default function database() {
   return {
@@ -84,6 +84,59 @@ export default function database() {
       return {
         get(): typeof jsonCategories {
           return JSON.parse(JSON.stringify(jsonCategories));
+        },
+      };
+    },
+    config: () => {
+      const key = 'database_builder_configs';
+
+      return {
+        get(): IBuilderConfig[] {
+          return JSON.parse(localStorage.getItem(key) ?? '[]');
+        },
+        findOne(id: string): IBuilderConfig | null {
+          const theConfigList = this.get();
+
+          return theConfigList.find((config) => config.id === id) ?? null;
+        },
+        findOneWithWidgetIdAndBuilderId(widgetId: string, builderId: string) {
+          const theConfigList = this.get();
+
+          return theConfigList.find((config) => config.widgetId === widgetId && config.builderId === builderId) ?? null;
+        },
+        save(data: IBuilderConfig) {
+          const availableData = this.get() ?? [];
+
+          const genId = data.id ?? Math.random().toString() + new Date().getTime().toString();
+          const configWidgetExisted = availableData.find(
+            (item) => item.id === genId || (item.widgetId === data.widgetId && item.builderId === data.builderId)
+          );
+
+          if (configWidgetExisted) {
+            // throw new Error('Cannot save the data was existed in the system');
+            const result = availableData.filter((config) => config.id !== configWidgetExisted.id);
+
+            data.id = configWidgetExisted.id;
+
+            return localStorage.setItem(key, JSON.stringify([...result, data]));
+          }
+
+          return localStorage.setItem(key, JSON.stringify(availableData.concat({ ...data, id: genId })));
+        },
+        remove(id: string | string[]) {
+          const availableData = this.get();
+          let configsRemoved: IBuilderConfig[] = [];
+
+          if (!Array.isArray(id)) {
+            const config = availableData.find((config) => config.id === id);
+            if (!config) throw new Error('Not found a config');
+
+            configsRemoved = availableData.filter((config) => config.id !== id);
+          } else if (Array.isArray(id)) {
+            configsRemoved = availableData.filter((config) => id.includes(config?.id ?? ''));
+          }
+
+          return configsRemoved;
         },
       };
     },

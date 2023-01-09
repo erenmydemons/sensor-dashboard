@@ -1,0 +1,15 @@
+{
+  "dataName": "$time",
+  "builderId": "builder-1",
+  "widgetId": "StackedAreaChart",
+  "apiUrl": "https://codestus.abc/api/mock-data-test",
+  "fields": [
+    { "show": true, "color": "#e3e3e3", "displayName": "A", "accessProperty": "data.temperature.C.Water1", "lineType": "Area" },
+    { "show": true, "color": "#ababab", "displayName": "B", "accessProperty": "data.temperature.C.Water2", "lineType": "Area" },
+    { "show": true, "color": "#737373", "displayName": "C", "accessProperty": "data.temperature.C.Water3", "lineType": "Area" },
+    { "show": true, "color": "#858585", "displayName": "D", "accessProperty": "data.temperature.F.Water1", "lineType": "Area" },
+    { "show": true, "color": "#c4c4c4", "displayName": "E", "accessProperty": "data.temperature.F.Water2", "lineType": "Area" },
+    { "show": true, "color": "#000000", "displayName": "F", "accessProperty": "data.temperature.F.Water3", "lineType": "Area" }
+  ],
+  "id": "0.81981735519474341673253319154"
+}

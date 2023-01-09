@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { IconButton, Input, Option, Select, Tab, TabPanel, Tabs, TabsBody, TabsHeader } from '@material-tailwind/react';
-import React, { FC, HTMLAttributes, useEffect, useMemo } from 'react';
+import { Chip, IconButton, Input, Option, Select, Tab, TabPanel, Tabs, TabsBody, TabsHeader, Tooltip } from '@material-tailwind/react';
+import clsx from 'clsx';
+import React, { FC, HTMLAttributes, useEffect, useMemo, useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { IoIosClose } from 'react-icons/io';
-import { useForm, Controller, useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'src/core/store';
+import { WIDGET } from 'src/lib/constants/general';
 import { useDistricts } from '../../hooks/useDistricts';
 import { draggingWidgetToBuilder, dropWidgetToBuilder, selectBuilder, selectWidgets } from '../../reducers/builder.slice';
 import { asyncGetCategories, selectCategories } from '../../reducers/category.slice';
+import SettingWidgetDrawer from '../SettingWidgetDrawer/SettingWidgetDrawer';
 
 export interface BuilderWidgetsDrawerProps extends HTMLAttributes<HTMLDivElement> {
   onClose?: () => void;
@@ -19,7 +22,13 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
   const _selectCategories = useSelector(selectCategories);
   const dispatch = useDispatch<AppDispatch>();
   const { register, control: formControl } = useForm();
+  const formSetting = useForm();
   const { statesOrFederals } = useDistricts();
+
+  const [settingWidget, setSettingWidget] = useState({
+    open: false,
+    targetWidgetId: '',
+  });
 
   const watchingKeyword = useWatch({ control: formControl, name: 'keyword' }) as string;
   const watchingState = useWatch({ control: formControl, name: 'state' }) as string;
@@ -27,13 +36,18 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
   // When depend changed many times, should to cache it by useMemo
   const layoutFilteredWidgets = useMemo(
     () =>
-      widgets.filter((currentWidget) => {
-        const hasWidgetInBuilder = (selectedBuilder.data ?? []).find((builderWidget) => builderWidget.id === currentWidget.id);
-        const matchedKeyword = watchingKeyword ? currentWidget.name.toLowerCase().includes(watchingKeyword.trim().toLowerCase()) : true;
-        const matchedState = watchingState && watchingState !== 'all' ? currentWidget.states.includes(watchingState.toLowerCase()) : true;
+      widgets
+        .filter((currentWidget) => {
+          const matchedKeyword = watchingKeyword ? currentWidget.name.toLowerCase().includes(watchingKeyword.trim().toLowerCase()) : true;
+          const matchedState = watchingState && watchingState !== 'all' ? currentWidget.states.includes(watchingState.toLowerCase()) : true;
 
-        return !hasWidgetInBuilder && matchedKeyword && matchedState;
-      }),
+          return matchedKeyword && matchedState;
+        })
+        .map((_widget) => {
+          const hasWidgetInBuilder = (selectedBuilder.data ?? []).find((builderWidget) => builderWidget.id === _widget.id);
+
+          return { ..._widget, draggable: !hasWidgetInBuilder };
+        }),
     [watchingKeyword, watchingState, widgets]
   );
 
@@ -45,17 +59,49 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
     }, 0);
   };
 
+  const onToggleSettingWidgetDrawer = (widgetId: string) => {
+    setSettingWidget((prevState) => ({
+      ...prevState,
+      open: !prevState.open,
+      targetWidgetId: widgetId,
+    }));
+
+    formSetting.setValue('settingWidgetId', widgetId);
+    formSetting.setValue('settingBuilderId', 'builder-1');
+  };
+
+  const onCloseSettingWidgetDrawer = () => {
+    setSettingWidget({
+      open: false,
+      targetWidgetId: '',
+    });
+  };
+
   useEffect(() => {
     dispatch(dropWidgetToBuilder());
     dispatch(asyncGetCategories());
   }, []);
+
+  useEffect(() => {
+    formSetting.register('settingWidgetId');
+    formSetting.register('settingBuilderId');
+  }, [formSetting]);
 
   return (
     <>
       <div
         {...props}
         style={{ boxShadow: '10px 10px 0 10000px rgba(0, 0, 0, 0.4)' }}
-        className="fixed top-0 right-0 max-h-screen h-full bg-white w-[550px] shadow-md border-l border-l-gray-50 p-4 transition-all duration-200 "
+        className={clsx(
+          'fixed top-0',
+          {
+            'right-0': !settingWidget.open,
+            'right-[550px]': settingWidget.open,
+          },
+          'max-h-screen h-full w-[550px]',
+          'shadow-md bg-white border-l border-l-gray-50 p-4',
+          'transition-all duration-200'
+        )}
       >
         <h2 className="font-bold text-lg flex items-center justify-between text-blue-500 mb-4">
           <span>Widgets</span>
@@ -109,25 +155,45 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
                     <div className="mt-4 grid grid-cols-2 gap-4 overflow-y-auto">
                       {(layoutFilteredWidgets ?? [])
                         .filter((widget) => widget.categories.includes(category.id))
-                        .map((widget, i) => (
-                          <div
-                            className="relative flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm"
-                            onDragStart={(e) => onDragTransferWidgetToBuilder(e, widget.id)}
-                            unselectable="on"
-                            draggable
-                          >
-                            {/* {widget.name} */}
-                            <img src={widget.thumbnail} alt={widget.name} className="w-full h-full rounded-md object-center object-cover" />
+                        .map((widget, i) => {
+                          const isIntegratedAPILabel = widget.label?.includes(WIDGET.LABEL.INTEGRATE_API);
+                          return (
+                            <div
+                              className={clsx(
+                                'relative flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm overflow-hidden',
+                                {
+                                  grayscale: !widget.draggable,
+                                }
+                              )}
+                              onDragStart={(e) => onDragTransferWidgetToBuilder(e, widget.id)}
+                              unselectable="on"
+                              draggable={widget.draggable}
+                            >
+                              {/* {widget.name} */}
+                              <img
+                                src={widget.thumbnail}
+                                alt={widget.name}
+                                className="w-full h-full rounded-md object-center object-cover"
+                              />
 
-                            <div className="absolute top-0 left-0 w-full h-full font-bold bg-gray-900/50 flex items-center justify-center text-white">
-                              {widget.name}
+                              <div className="absolute top-0 left-0 w-full h-full font-bold bg-gray-900/50 flex items-center justify-center text-white">
+                                {widget.name}
+                              </div>
+
+                              {isIntegratedAPILabel && (
+                                <Tooltip content="Open settings">
+                                  <div className="absolute top-0 -right-3 scale-75" onClick={() => onToggleSettingWidgetDrawer(widget.id)}>
+                                    <Chip value="Configuration" />
+                                  </div>
+                                </Tooltip>
+                              )}
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                     </div>
                   ) : (
                     <p className="text-center w-full">
-                      <span className="text-md">No widget here.</span>
+                      <span className="text-md">No widget.</span>
                     </p>
                   )}
                 </TabPanel>
@@ -136,6 +202,8 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
           </TabsBody>
         </Tabs>
       </div>
+
+      {settingWidget.open && <SettingWidgetDrawer onClose={onCloseSettingWidgetDrawer} formContext={formSetting} />}
     </>
   );
 };

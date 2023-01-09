@@ -1,0 +1,17 @@
+.setting-widget-drawer {
+  .form-input {
+    & > div {
+      @apply min-w-full;
+    }
+
+    &.select {
+      & > div {
+        @apply min-w-[100px];
+
+        svg {
+          @apply hidden;
+        }
+      }
+    }
+  }
+}

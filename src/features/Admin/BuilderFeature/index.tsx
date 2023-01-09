@@ -34,6 +34,7 @@ import 'react-resizable/css/styles.css';
 export interface BuilderPageProps {}
 
 const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
+  const layoutGridViewRef = useRef<HTMLCanvasElement>(null);
   const refBuilder = useRef<HTMLDivElement | null>(null);
   const [isOpenDrawerWidget, setIsOpenDrawerWidget] = useState(false);
   const _selectBuilder = useSelector(selectBuilder);
@@ -94,6 +95,26 @@ const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
     );
   });
 
+  // useEffect(() => {
+  //   const canvasContext = layoutGridViewRef.current ? layoutGridViewRef.current.getContext('2d') : null;
+  //   if(canvasContext) {
+  //     canvasContext.fillStyle = "rgba(200, 0, 0)";
+  //     canvasContext.beginPath();
+
+  //     const itemSize = (window.innerWidth / 16);
+  //     const gap = 16;
+
+  //     for(let positionX = 0, i = 0 ; i < 16; positionX+=itemSize + gap, i++) {
+  //       for(let positionY = 0, j = 0 ; j < 16; positionY+=itemSize + gap, j++) {
+  //         canvasContext.rect(positionX, positionY, itemSize, itemSize);
+  //       } 
+  //     }
+
+  //     canvasContext.fill();
+  //     canvasContext.closePath();
+  //   }
+  // }, [layoutGridViewRef.current]);
+
   return (
     <>
       <section>
@@ -144,6 +165,8 @@ const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
           </Tooltip>
         </div>
       </section>
+
+      {/* <canvas width={window.innerWidth} height={window.innerHeight} className="absolute top-0 left-0 pointer-events-none" ref={layoutGridViewRef}></canvas> */}
 
       {selectedSaveBuilderLoading && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

@@ -171,8 +171,9 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan", "penang"],
-    "categories": ["bar-chart"],
-    "thumbnail": "/assets/widget-images/StackedAreaChart.png"
+    "categories": ["line-chart"],
+    "thumbnail": "/assets/widget-images/StackedAreaChart.png",
+    "label": ["integrate-api"]
   },
   {
     "id": "SpecifiedDomainRadarChart",

@@ -1,113 +1,72 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import dayjs from 'dayjs';
+import _get from 'lodash/get';
+import { useEffect, useRef, useState } from 'react';
+import { Area, Bar, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { IBuilderConfig } from 'src/lib/@types/model';
+import { routes } from 'src/mocks/server';
 
-export default function Example() {
+const lazyLineTypeChart = {
+  Line: Line,
+  Bar: Bar,
+  Area: Area,
+};
+
+export default function Example({ ...props }: any) {
   const refTimer = useRef<any>(null);
-  const [data, setData] = useState(() => [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: 'Page F',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page 123',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page 4213',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page 124',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page 1245F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page 123',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ]);
+  const [config, setConfig] = useState<IBuilderConfig | null>(null);
+  const [data, setData] = useState<any[]>([]);
 
+  // Get config widget
   useEffect(() => {
-    refTimer.current = setInterval(() => {
-      setData([
-        ...data.slice(1, data.length),
-        {
-          name: `Page ${Math.round(Math.random() * 1000)}`,
-          uv: Math.random() * 7000,
-          pv: Math.random() * 400,
-          amt: Math.random() * 3000,
-        },
-      ]);
-    }, 1500);
+    const widgetConfig = routes().configs.findOneWithWidgetIdAndBuilderId('StackedAreaChart', 'builder-1');
 
-    return () => {
-      clearInterval(refTimer.current);
-    };
-  });
+    if (widgetConfig) {
+      const ms = 1000;
+      const url = widgetConfig.apiUrl;
+      refTimer.current = setInterval(async () => {
+        try {
+          const res = await fetch(url).then((res) => res.json());
+
+          if (res) {
+            const fieldsAvailable = widgetConfig.fields.filter((field) => field.show);
+            const dataFields: any = fieldsAvailable.reduce(
+              (mapped, fieldConfig) => ({
+                ...mapped,
+                [fieldConfig.displayName]: _get(res, fieldConfig.accessProperty),
+              }),
+              {}
+            );
+
+            const dataLine = {
+              ...dataFields,
+              name: widgetConfig.dataName.replace('$time', dayjs().format('hh:mm:ss')),
+            };
+
+            if (data.length <= 10) {
+              setData([...data, dataLine]);
+            } else {
+              setData([...data.slice(1, data.length), dataLine]);
+            }
+          }
+        } catch {
+          console.error('error');
+        }
+      }, ms);
+
+      setConfig(widgetConfig);
+
+      return () => {
+        clearInterval(refTimer.current);
+      };
+    }
+  }, [data]);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <AreaChart
+      <ComposedChart
         width={500}
         height={400}
-        data={data}
+        data={data ?? []}
         margin={{
           top: 10,
           right: 30,
@@ -115,14 +74,18 @@ export default function Example() {
           bottom: 0,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        {/* <CartesianGrid strokeDasharray="5 5" /> */}
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
-        <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-        <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
-      </AreaChart>
+        {config?.fields.map((field) => {
+          if (!field.show) return null;
+
+          const LineType = (lazyLineTypeChart as any)[field.lineType];
+
+          return <LineType type="monotone" dataKey={field.displayName} stroke={field.color} fill={field.color} />;
+        })}
+      </ComposedChart>
     </ResponsiveContainer>
   );
 }

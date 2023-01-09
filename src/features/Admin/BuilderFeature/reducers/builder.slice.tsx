@@ -2,10 +2,11 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Layout } from 'react-grid-layout';
 import { RootState } from '../../../../core/store';
 
-import { Builder, Widget } from 'src/lib/@types/model';
+import { Builder, IBuilderConfig, Widget } from 'src/lib/@types/model';
 import { routes } from 'src/mocks/server';
 
 import builderPatternJson from 'src/mocks/builder-full.json';
+import configWidgetPatternJson from 'src/mocks/config.json';
 
 export interface BuilderFilterState {
   widgetName: string;
@@ -72,7 +73,7 @@ const builderSlice = createSlice({
         state = {
           ...state,
           builder: { ...state.builder, data: (state.builder.data ?? []).concat(widget) },
-          widgets: state.widgets.filter((widget) => widget.id !== widgetId),
+          widgets: state.widgets,
         };
       }
       return state;
@@ -154,6 +155,9 @@ const builderSlice = createSlice({
     loadPattern: (state) => {
       console.log('Load pattern');
       state = { ...state, builder: builderPatternJson as any };
+
+      routes().configs.save(configWidgetPatternJson as any as IBuilderConfig);
+
       return state;
     },
 

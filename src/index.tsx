@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@material-tailwind/react';
 import { Provider } from 'react-redux';
 import store from './core/store';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -13,6 +15,7 @@ root.render(
     <Provider store={store}>
       <ThemeProvider>
         <App />
+        <ToastContainer theme="dark" />
       </ThemeProvider>
     </Provider>
   </React.StrictMode>

@@ -1,3 +1,5 @@
+import jsonConfigSchema from '../../mocks/config-schema.json';
+
 export interface Widget {
   id: string;
   name: string;
@@ -11,6 +13,7 @@ export interface Widget {
   states: string[];
   categories: string[];
   thumbnail: string;
+  label?: string[];
 }
 
 export interface Properties {
@@ -72,3 +75,5 @@ export interface Category {
   name: string;
   id: string;
 }
+
+export type IBuilderConfig = Omit<typeof jsonConfigSchema, 'id'> & Partial<Pick<typeof jsonConfigSchema, 'id'>>;
