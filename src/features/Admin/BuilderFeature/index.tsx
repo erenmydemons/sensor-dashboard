@@ -19,7 +19,7 @@ import {
   resetBuilderAndWidget,
   selectBuilder,
   selectSaveLoading,
-  selectWidgetIdDragging,
+  selectWidgetIdDragging
 } from './reducers/builder.slice';
 
 import { Layout } from 'react-grid-layout';
@@ -34,7 +34,7 @@ import 'react-resizable/css/styles.css';
 export interface BuilderPageProps {}
 
 const BuilderPage: FC<BuilderPageProps> = ({ ...props }) => {
-  const layoutGridViewRef = useRef<HTMLCanvasElement>(null);
+  // const layoutGridViewRef = useRef<HTMLCanvasElement>(null);
   const refBuilder = useRef<HTMLDivElement | null>(null);
   const [isOpenDrawerWidget, setIsOpenDrawerWidget] = useState(false);
   const _selectBuilder = useSelector(selectBuilder);

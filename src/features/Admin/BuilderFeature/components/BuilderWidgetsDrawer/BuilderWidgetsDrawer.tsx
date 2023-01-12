@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Chip, IconButton, Input, Option, Select, Tab, TabPanel, Tabs, TabsBody, TabsHeader, Tooltip } from '@material-tailwind/react';
+import { Button, Chip, IconButton, Input, Option, Select, Tooltip } from '@material-tailwind/react';
 import clsx from 'clsx';
 import React, { FC, HTMLAttributes, useEffect, useMemo, useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
-import { IoIosClose } from 'react-icons/io';
+import { IoIosClose, IoMdArrowBack } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'src/core/store';
 import { WIDGET } from 'src/lib/constants/general';
@@ -24,6 +24,11 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
   const { register, control: formControl } = useForm();
   const formSetting = useForm();
   const { statesOrFederals } = useDistricts();
+
+  const [currentSteps, setCurrentSteps] = useState({
+    parent: -1,
+    children: -1,
+  });
 
   const [settingWidget, setSettingWidget] = useState({
     open: false,
@@ -77,6 +82,17 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
     });
   };
 
+  const onSetSteps = (type: keyof typeof currentSteps, index: number) => {
+    setCurrentSteps((prevState) => {
+      const additional = type === 'parent' ? { children: currentSteps.children === -1 ? 0 : 1 } : {};
+      return {
+        ...prevState,
+        [type]: index,
+        ...additional,
+      };
+    });
+  };
+
   useEffect(() => {
     dispatch(dropWidgetToBuilder());
     dispatch(asyncGetCategories());
@@ -86,6 +102,11 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
     formSetting.register('settingWidgetId');
     formSetting.register('settingBuilderId');
   }, [formSetting]);
+
+  console.log('layoutFilteredWidgets', layoutFilteredWidgets);
+
+  const category = _selectCategories?.[currentSteps.parent];
+  const subCategory = category ? category.children[currentSteps.children] : null;
 
   return (
     <>
@@ -110,28 +131,118 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
           </IconButton>
         </h2>
 
-        <div className="flex gap-4">
-          <div className="w-6/12">
-            <Input {...register('keyword')} className="w-full" label="Keyword" />
+        {currentSteps.parent !== -1 ? (
+          <>
+            <div
+              color="white"
+              className="my-4 inline-flex items-center cursor-pointer pr-4 py-2"
+              onClick={() => {
+                onSetSteps('parent', -1);
+                onSetSteps('children', -1);
+              }}
+            >
+              <IoMdArrowBack size={18} className="mr-2" />
+              Back
+            </div>
+
+            <div className="flex gap-4">
+              <div className="w-6/12">
+                <Input {...register('keyword')} className="w-full" label="Keyword" />
+              </div>
+              <div className="w-6/12">
+                <Controller
+                  {...register('state')}
+                  control={formControl}
+                  render={(stateProps) => (
+                    <Select label="State" placeholder="Search" onChange={(value) => stateProps.field.onChange(value)}>
+                      {statesOrFederals?.map((item) => (
+                        <Option value={item.state.toLowerCase()}>{item.state}</Option>
+                      ))}
+                    </Select>
+                  )}
+                ></Controller>
+              </div>
+            </div>
+          </>
+        ) : null}
+
+        {currentSteps.parent === -1 ? (
+          <div className="grid grid-cols-2 gap-4">
+            {_selectCategories.map((category, index) => (
+              <div
+                className={clsx('min-h-[100px] text-white rounded-md shadow-md flex items-center justify-center cursor-pointer', [
+                  currentSteps.parent === index ? 'bg-gray-700' : 'bg-blue-500',
+                ])}
+                key={`parent-${category.id}`}
+                onClick={() => onSetSteps('parent', index)}
+              >
+                {category.name}
+              </div>
+            ))}
           </div>
-          <div className="w-6/12">
-            <Controller
-              {...register('state')}
-              control={formControl}
-              render={(stateProps) => (
-                <Select label="State" placeholder="Search" onChange={(value) => stateProps.field.onChange(value)}>
-                  {statesOrFederals?.map((item) => (
-                    <Option value={item.state.toLowerCase()}>{item.state}</Option>
-                  ))}
-                </Select>
-              )}
-            ></Controller>
+        ) : null}
+
+        {currentSteps.parent !== -1 && (
+          <div className="flex gap-2 flex-wrap mt-5 mb-8">
+            {_selectCategories[currentSteps.parent].children.map((subCategory, index) => {
+              const isTargetSubCategory =
+                _selectCategories?.[currentSteps.parent]?.children?.[currentSteps.children]?.id === subCategory.id;
+              return (
+                <div
+                  className={clsx('px-4 py-2 rounded-2xl text-xs cursor-pointer', {
+                    'bg-blue-500 text-white': isTargetSubCategory,
+                    'border border-blue-500 text-blue-500': !isTargetSubCategory,
+                  })}
+                  key={subCategory.id}
+                  onClick={() => onSetSteps('children', index)}
+                >
+                  {subCategory.name}
+                </div>
+              );
+            })}
           </div>
+        )}
+
+        <div className="mt-4 grid grid-cols-2 gap-4 overflow-y-auto">
+          {(layoutFilteredWidgets ?? [])
+            .filter((widget) => {
+              const isContainCategory = widget.categories.parent.includes(category?.id);
+              const isContainSubCategory = widget.categories.children.includes(subCategory?.id ?? '');
+              return isContainCategory && isContainSubCategory;
+            })
+            .map((widget, i) => {
+              const isIntegratedAPILabel = widget.label?.includes(WIDGET.LABEL.INTEGRATE_API);
+              return (
+                <div
+                  className={clsx(
+                    'relative flex items-center justify-center w-full h-[100px] bg-gray-100 rounded cursor-pointer text-sm overflow-hidden',
+                    {
+                      grayscale: !widget.draggable,
+                    }
+                  )}
+                  onDragStart={(e) => onDragTransferWidgetToBuilder(e, widget.id)}
+                  unselectable="on"
+                  draggable={widget.draggable}
+                >
+                  <img src={widget.thumbnail} alt={widget.name} className="w-full h-full rounded-md object-center object-cover" />
+
+                  <div className="absolute top-0 left-0 w-full h-full font-bold bg-gray-900/50 flex items-center justify-center text-white">
+                    {widget.name}
+                  </div>
+
+                  {isIntegratedAPILabel && (
+                    <Tooltip content="Open settings">
+                      <div className="absolute top-0 -right-3 scale-75" onClick={() => onToggleSettingWidgetDrawer(widget.id)}>
+                        <Chip value="Configuration" />
+                      </div>
+                    </Tooltip>
+                  )}
+                </div>
+              );
+            })}
         </div>
 
-        <div className="mt-4"></div>
-
-        <Tabs value="input">
+        {/* <Tabs value="input">
           <TabsHeader>
             {_selectCategories.map((category) => {
               return (
@@ -169,7 +280,6 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
                               unselectable="on"
                               draggable={widget.draggable}
                             >
-                              {/* {widget.name} */}
                               <img
                                 src={widget.thumbnail}
                                 alt={widget.name}
@@ -200,7 +310,7 @@ const BuilderWidgetsDrawer: FC<BuilderWidgetsDrawerProps> = ({ onClose, ...props
               );
             })}
           </TabsBody>
-        </Tabs>
+        </Tabs> */}
       </div>
 
       {settingWidget.open && <SettingWidgetDrawer onClose={onCloseSettingWidgetDrawer} formContext={formSetting} />}
