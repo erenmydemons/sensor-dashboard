@@ -1,22 +1,120 @@
 [
   {
-    "id": "input",
-    "name": "Input"
+    "id": "Intake",
+    "name": "Intake",
+    "children": [
+      {
+        "name": "Source",
+        "id": "Source"
+      },
+      {
+        "name": "Water Quality",
+        "id": "WaterQuality"
+      },
+      {
+        "name": "Intake Power Status",
+        "id": "IntakePowerStatus"
+      },
+      {
+        "name": "Intake Meter",
+        "id": "IntakeMeter"
+      },
+      {
+        "name": "IntakePumpHouseStatus",
+        "id": "IntakePumpHouseStatus"
+      },
+      {
+        "name": "iJMS",
+        "id": "iJMS"
+      }
+    ]
   },
   {
-    "id": "line-chart",
-    "name": "Line Chart"
+    "id": "WTP",
+    "name": "WTP",
+    "children": [
+      {
+        "name": "Water Quality",
+        "id": "WaterQuality"
+      },
+      {
+        "name": "WTP Power Status",
+        "id": "WTPPowerStatus"
+      },
+      {
+        "name": "WTP Pump Status",
+        "id": "WTPPumpStatus"
+      },
+      {
+        "name": "Buffer Tank Level (KIV)",
+        "id": "BufferTankLevel(KIV)"
+      },
+      {
+        "name": "Production Meter",
+        "id": "ProductionMeter"
+      },
+      {
+        "name": "WTP Balancing Res Level",
+        "id": "WTPBalancingResLevel"
+      },
+      {
+        "name": "iJMS",
+        "id": "iJMS"
+      }
+    ]
   },
   {
-    "id": "bar-chart",
-    "name": "Bar Chart"
+    "id": "Distribution",
+    "name": "Distribution",
+    "children": [
+      {
+        "name": "Balancing Res Level",
+        "id": "BalancingResLevel"
+      },
+      {
+        "name": "Suction Level",
+        "id": "SuctionLevel"
+      },
+      {
+        "name": "Service/Storage Level",
+        "id": "Service/StorageLevel"
+      }
+    ]
   },
   {
-    "id": "pie-chart",
-    "name": "Pie Chart"
+    "id": "Network",
+    "name": "Network",
+    "children": [
+      {
+        "name": "DMA",
+        "id": "DMA"
+      },
+      {
+        "name": "Pressure Threshold",
+        "id": "PressureThreshold"
+      },
+      {
+        "name": "Pipeline",
+        "id": "Pipeline"
+      }
+    ]
   },
   {
-    "id": "map",
-    "name": "Map"
+    "id": "Customer",
+    "name": "Customer",
+    "children": [
+      {
+        "name": "BIS",
+        "id": "BIS"
+      },
+      {
+        "name": "NRW",
+        "id": "NRW"
+      },
+      {
+        "name": "Complaints iJMS",
+        "id": "ComplaintsiJMS"
+      }
+    ]
   }
 ]

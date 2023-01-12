@@ -21,7 +21,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["all"],
-    "categories": ["map"],
+    "categories": {
+      "parent": ["Intake"],
+      "children": ["Source", "WaterQuality", "IntakePowerStatus"]
+    },
     "thumbnail": "/assets/widget-images/Map.png"
   },
   {
@@ -47,7 +50,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["all"],
-    "categories": ["input"],
+    "categories": {
+      "parent": ["WTP"],
+      "children": ["ProductionMeter", "WaterQuality", "WTPPowerStatus"]
+    },
     "thumbnail": "/assets/widget-images/FilterState.png"
   },
   {
@@ -72,7 +78,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["johor", "pahang", "negeri sembilan"],
-    "categories": ["pie-chart"],
+    "categories": {
+      "parent": ["WTP"],
+      "children": ["ProductionMeter", "iJMS", "WTPBalancingResLevel"]
+    },
     "thumbnail": "/assets/widget-images/PieTemperature.png"
   },
   {
@@ -96,7 +105,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["sarawak", "malacca", "sarawak"],
-    "categories": ["pie-chart"],
+    "categories": {
+      "parent": ["Distribution"],
+      "children": ["BalancingResLevel", "SuctionLevel"]
+    },
     "thumbnail": "/assets/widget-images/PieWater.png"
   },
   {
@@ -121,7 +133,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["johor", "terengganu"],
-    "categories": ["pie-chart"],
+    "categories": {
+      "parent": ["Distribution"],
+      "children": ["Service/StorageLevel"]
+    },
     "thumbnail": "/assets/widget-images/WaterTemperature.png"
   },
   {
@@ -146,7 +161,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["perlis", "terengganu"],
-    "categories": ["bar-chart"],
+    "categories": {
+      "parent": ["Network"],
+      "children": ["PressureThreshold"]
+    },
     "thumbnail": "/assets/widget-images/MixBarChart.png"
   },
   {
@@ -171,7 +189,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan", "penang"],
-    "categories": ["line-chart"],
+    "categories": {
+      "parent": ["Network"],
+      "children": ["PressureThreshold", "DMA"]
+    },
     "thumbnail": "/assets/widget-images/StackedAreaChart.png",
     "label": ["integrate-api"]
   },
@@ -197,7 +218,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan", "penang"],
-    "categories": ["bar-chart"],
+    "categories": {
+      "parent": ["Network"],
+      "children": ["Pipeline", "PressureThreshold"]
+    },
     "thumbnail": "/assets/widget-images/SpecifiedDomainRadarChart.png"
   },
   {
@@ -222,7 +246,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan"],
-    "categories": ["pie-chart"],
+    "categories": {
+      "parent": ["Network"],
+      "children": ["Pipeline", "DMA"]
+    },
     "thumbnail": "/assets/widget-images/CustomActiveShapePieChart.png"
   },
   {
@@ -247,7 +274,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan", "penang"],
-    "categories": ["bar-chart"],
+    "categories": {
+      "parent": ["Network"],
+      "children": ["Pipeline", "DMA"]
+    },
     "thumbnail": "/assets/widget-images/TinyBarChart.png"
   },
   {
@@ -272,7 +302,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan", "penang"],
-    "categories": ["line-chart"],
+    "categories": {
+      "parent": ["Customer"],
+      "children": ["BIS", "NRW", "ComplaintsiJMS"]
+    },
     "thumbnail": "/assets/widget-images/SameDataComposedChart.png"
   },
   {
@@ -297,7 +330,10 @@
     "updatedAt": "2022-11-15 15:00:00",
     "builders": [],
     "states": ["labuan", "penang"],
-    "categories": ["bar-chart"],
+    "categories": {
+      "parent": ["Customer"],
+      "children": ["BIS", "ComplaintsiJMS"]
+    },
     "thumbnail": "/assets/widget-images/SimpleRadialBarChart.png"
   }
 ]
