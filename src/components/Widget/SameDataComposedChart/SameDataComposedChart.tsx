@@ -1,62 +1,47 @@
 import { useEffect, useRef, useState } from 'react';
 import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import axios from 'axios';
 
 export default function SameDataComposedChart() {
-  const refTimer = useRef<any>();
   const [data, setData] = useState([
     {
-      name: 'Page A',
-      uv: 590,
-      pv: 800,
-      amt: 1400,
-    },
-    {
-      name: 'Page B',
-      uv: 868,
-      pv: 967,
-      amt: 1506,
-    },
-    {
-      name: 'Page C',
-      uv: 1397,
-      pv: 1098,
-      amt: 989,
-    },
-    {
-      name: 'Page D',
-      uv: 1480,
-      pv: 1200,
-      amt: 1228,
-    },
-    {
-      name: 'Page E',
-      uv: 1520,
-      pv: 1108,
-      amt: 1100,
-    },
-    {
-      name: 'Page F',
-      uv: 1400,
-      pv: 680,
-      amt: 1700,
+      name: 'Label',
+      percent: 0,
     },
   ]);
 
-  useEffect(() => {
-    refTimer.current = setInterval(() => {
-      setData([
-        ...data.slice(1, data.length),
-        {
-          name: 'Page ' + new Date().getTime(),
-          uv: Math.random() * 2000,
-          pv: Math.random() * 1000,
-          amt: Math.random() * 3000,
-        },
-      ]);
-    }, 1500);
+  const labels = {
+    percentNoWater: 'No Water',
+    percentWaterQuality: 'Water Quality',
+    percentWaterPressure: 'Water Pressure',
+    percentBillingMeter: 'Billing Meter',
+    percentPipeBreakage: 'Pipe Breakage',
+    percentOthers: 'Others',
+  };
 
-    return () => clearInterval(refTimer.current);
-  });
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.post('http://64.227.152.71/api/ijms/customer/workjob/summary', {
+          districtId: 'JB',
+          dateRange: 'TODAY',
+          dateStart: '2022-11-04',
+          dateEnd: '2022-11-05',
+        });
+
+        setData([
+          { name: labels.percentNoWater, percent: data.percentNoWater },
+          { name: labels.percentWaterQuality, percent: data.percentWaterQuality },
+          { name: labels.percentWaterPressure, percent: data.percentWaterPressure },
+          { name: labels.percentBillingMeter, percent: data.percentBillingMeter },
+          { name: labels.percentPipeBreakage, percent: data.percentPipeBreakage },
+          { name: labels.percentOthers, percent: data.percentOthers },
+        ]);
+      } catch {
+        console.log('ERROR');
+      }
+    })();
+  }, []);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -76,8 +61,7 @@ export default function SameDataComposedChart() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="uv" barSize={20} fill="#413ea0" />
-        <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+        <Bar dataKey="percent" barSize={80} fill="#413ea0" />
       </ComposedChart>
     </ResponsiveContainer>
   );

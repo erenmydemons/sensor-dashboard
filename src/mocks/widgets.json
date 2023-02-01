@@ -58,17 +58,20 @@
   },
   {
     "id": "PieTemperature",
-    "name": "Pie Temperature",
+    "name": "Pie Complaints",
     "description": "",
     "widget": {
       "name": "PieTemperature"
     },
     "properties": {
+      "w": 6,
+      "h": 6,
       "x": 0,
       "y": 0,
-      "w": 6,
-      "h": 4,
-      "minW": 2,
+      "i": "Pie Complaints",
+      "minW": 6,
+      "minH": 6,
+      "moved": false,
       "static": false
     },
     "setting": {
@@ -79,8 +82,8 @@
     "builders": [],
     "states": ["johor", "pahang", "negeri sembilan"],
     "categories": {
-      "parent": ["WTP"],
-      "children": ["ProductionMeter", "iJMS", "WTPBalancingResLevel"]
+      "parent": ["WTP", "Customer"],
+      "children": ["ProductionMeter", "ComplaintsiJMS", "WTPBalancingResLevel"]
     },
     "thumbnail": "/assets/widget-images/PieTemperature.png"
   },
@@ -282,16 +285,16 @@
   },
   {
     "id": "SameDataComposedChart",
-    "name": "SameDataComposedChart",
-    "description": "SameDataComposedChart",
+    "name": "Bar Complaints",
+    "description": "Bar Complaints",
     "widget": {
       "name": "SameDataComposedChart"
     },
     "properties": {
       "x": 0,
       "y": 0,
-      "w": 4,
-      "h": 4,
+      "w": 8,
+      "h": 5,
       "minW": 4,
       "static": false
     },
@@ -332,7 +335,7 @@
     "states": ["labuan", "penang"],
     "categories": {
       "parent": ["Customer"],
-      "children": ["BIS", "ComplaintsiJMS"]
+      "children": ["BIS"]
     },
     "thumbnail": "/assets/widget-images/SimpleRadialBarChart.png"
   }

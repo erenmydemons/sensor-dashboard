@@ -1,40 +1,75 @@
-import { memo } from 'react';
-import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
+import axios from 'axios';
+import './styles.css';
 
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
+const PieTemperature = () => {
+  const [series, setSeries] = useState<Object>({});
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.post('http://64.227.152.71/api/ijms/customer/workjob/summary', {
+          districtId: 'JB',
+          dateRange: 'TODAY',
+          dateStart: '2022-11-04',
+          dateEnd: '2022-11-05',
+        });
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+        setSeries({
+          percentNoWater: data.percentNoWater,
+          percentWaterQuality: data.percentWaterQuality,
+          percentWaterPressure: data.percentWaterPressure,
+          percentBillingMeter: data.percentBillingMeter,
+          percentPipeBreakage: data.percentPipeBreakage,
+          percentOthers: data.percentOthers,
+        });
+      } catch {
+        console.log('ERROR');
+      }
+    })();
+  }, []);
+
+  const labels = {
+    percentNoWater: 'No Water',
+    percentWaterQuality: 'Water Quality',
+    percentWaterPressure: 'Water Pressure',
+    percentBillingMeter: 'Billing Meter',
+    percentPipeBreakage: 'Pipe Breakage',
+    percentOthers: 'Others',
+  };
 
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
+    <div id="chart">
+      <ReactApexChart
+        options={
+          {
+            chart: {
+              width: 440,
+              type: 'pie',
+            },
+            labels: Object.keys(series).map((k) => (labels as any)[k] as any),
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200,
+                  },
+                  legend: {
+                    position: 'bottom',
+                  },
+                },
+              },
+            ],
+          } as any
+        }
+        series={Object.values(series as any) as any[]}
+        type="pie"
+        width={440}
+      />
+    </div>
   );
 };
 
-const ChartExample = memo(() => {
-  return (
-    <ResponsiveContainer className={'bg-black rounded-md'} width="100%" height="100%">
-      <PieChart width={400} height={400}>
-        <Pie data={data} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={150} fill="#8884d8" dataKey="value">
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
-    </ResponsiveContainer>
-  );
-});
-
-export default ChartExample;
+export default PieTemperature;
