@@ -135,7 +135,16 @@
       "name": "Pie Temperature",
       "description": "",
       "widget": { "name": "PieTemperature" },
-      "properties": { "w": 5, "h": 7, "x": 7, "y": 12, "i": "PieTemperature", "minW": 2, "moved": false, "static": false },
+      "properties": {
+        "w": 6,
+        "h": 5,
+        "x": 0,
+        "y": 0,
+        "i": "PieTemperature",
+        "minW": 2,
+        "moved": false,
+        "static": false
+      },
       "setting": { "className": "p-4" },
       "createdAt": "2022-11-15 15:00:00",
       "updatedAt": "2022-11-15 15:00:00",

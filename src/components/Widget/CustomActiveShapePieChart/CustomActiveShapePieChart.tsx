@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 
 const data = [
   { name: 'Group A', value: 400 },
@@ -46,37 +47,47 @@ const renderActiveShape = (props: any) => {
   );
 };
 
-export default class Example extends PureComponent {
-  static demoUrl = 'https://codesandbox.io/s/pie-chart-with-customized-active-shape-y93si';
+const Example = () => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  state = {
-    activeIndex: 0,
+  const onPieEnter = (_: any, index: number) => {
+    setActiveIndex(index);
   };
 
-  onPieEnter = (_: any, index: any) => {
-    this.setState({
-      activeIndex: index,
-    });
-  };
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.post('http://64.227.152.71/api/ijms/customer/workjob/summary', {
+          districtId: 'JB',
+          dateRange: 'TODAY',
+          dateStart: '2022-11-04',
+          dateEnd: '2022-11-05',
+        });
+        console.log(response);
+      } catch {
+        console.log('ERROR');
+      }
+    })();
+  }, []);
 
-  render() {
-    return (
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
-          <Pie
-            activeIndex={this.state.activeIndex}
-            activeShape={renderActiveShape}
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            onMouseEnter={this.onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-    );
-  }
-}
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={400} height={400}>
+        <Pie
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={60}
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="value"
+          onMouseEnter={onPieEnter}
+        />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+};
+
+export default Example;
